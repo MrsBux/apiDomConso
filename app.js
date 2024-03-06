@@ -1,5 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const partnersRoutes = require("./routes/partners.js");
+const winesRoutes = require("./routes/wines.js");
+const salonsRoutes = require("./routes/salons.js");
+const prestationsRoutes = require("./routes/prestations.js");
+const newsSubsRoutes = require("./routes/newssub.js");
+const formContactRoutes = require("./routes/formcontact.js");
+const formGFVRoutes = require("./routes/formGFV.js");
+const formPartnerRoutes = require("./routes/formpartner.js");
+const formPrestationRoutes = require("./routes/formprestation.js");
+const userRoutes = require("./routes/user.js");
+const adminRoutes = require("./routes/admin.js");
 
 require("dotenv").config();
 const mongoURI = process.env.MONGODB_URI;
@@ -30,32 +41,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/partners", (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({ message: "partenaire créé!" });
-});
-
-app.get("/api/partners", (req, res, next) => {
-  const partners = [
-    {
-      _id: "oeihfzeoi",
-      name: "Mon premier partenaire",
-      description: "Les infos de mon premier partenaire",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg",
-      category: "restaurateur",
-    },
-    {
-      _id: "oeihfzeomoihi",
-      name: "Mon deuxième partenaire",
-      description: "Les infos de mon deuxième partenaire",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg",
-      category: "restaurateur",
-    },
-  ];
-  res.status(200).json(partners);
-  console.log("response reçue");
-});
+app.use("/api/admin", adminRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/partners", partnersRoutes);
+app.use("/api/wines", winesRoutes);
+app.use("/api/salons", salonsRoutes);
+app.use("/api/prestations", prestationsRoutes);
+app.use("/api/newssubs", newsSubsRoutes);
+app.use("/api/formcontact", formContactRoutes);
+app.use("/api/formGFV", formGFVRoutes);
+app.use("/api/formpartner", formPartnerRoutes);
+app.use("/api/formprestation", formPrestationRoutes);
 
 module.exports = app;

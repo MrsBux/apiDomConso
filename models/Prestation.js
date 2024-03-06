@@ -10,7 +10,6 @@ const prestationSchema = mongoose.Schema({
     required: true,
   },
   imageUrl: { type: String, required: true },
-  number: { String, required: true },
 });
 
 module.exports = mongoose.model("Prestation", prestationSchema);

@@ -27,8 +27,8 @@ const salonSchema = mongoose.Schema({
     required: true,
   },
   lieu: {
-    nomVille: { type: String, required: true },
-    codePostal: { type: Number, required: true },
+    city: { type: String, required: true },
+    postalCode: { type: Number, required: true },
   },
   category: {
     type: String,
