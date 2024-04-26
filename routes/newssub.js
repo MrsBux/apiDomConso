@@ -7,7 +7,7 @@ router.post("/", newssubCtrl.createNewsSub);
 
 router.delete("/:id", newssubCtrl.deleteNewsSub);
 
-router.get("/:id", newssubCtrlCtrl.getOneNewsSub);
+router.get("/:id", newssubCtrl.getOneNewsSub);
 
 router.get("/", newssubCtrl.getAllNewsSubs);
 

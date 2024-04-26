@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const salonSchema = mongoose.Schema({
+  id: { type: Number, required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
-  date: {
-    start: { type: Date, required: true },
-    end: { type: Date, required: true },
-  },
+  date: { type: String, required: true },
+  debut: { type: Date, required: true },
+  fin: { type: Date, required: true },
   region: {
     type: String,
     enum: [
@@ -22,24 +22,13 @@ const salonSchema = mongoose.Schema({
       "Nouvelle-Aquitaine",
       "Occitanie",
       "Pays de la Loire",
-      "Provence-Alpes-Côte d'Azur",
+      "PACA",
     ],
     required: true,
   },
-  lieu: {
-    city: { type: String, required: true },
-    postalCode: { type: Number, required: true },
-  },
-  category: {
-    type: String,
-    enum: ["SRG", "Vinomédia", "Indépendant"],
-    required: true,
-  },
-  imageUrl: { type: String, required: true },
-  invitation: {
-    data: Buffer,
-    contentType: String,
-  },
+  localisation: { type: String, required: true },
+  logoUrl: { type: String, required: true },
+  invitation: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Salon", salonSchema);

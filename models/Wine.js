@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
 
 const wineSchema = mongoose.Schema({
+  id: { type: Number, required: true },
+
   name: { type: String, required: true },
 
-  color: {
+  couleur: {
     type: String,
     enum: ["Blanc", "Rouge"],
     required: true,
   },
 
-  appelation: {
+  AOC: {
     type: String,
     enum: ["Châteauneuf-du-Pape", "Lirac", "Vin de France"],
     required: true,
@@ -17,35 +19,14 @@ const wineSchema = mongoose.Schema({
 
   millesime: { type: Number },
 
-  taille: {
+  volume: {
     type: String,
     enum: ["75cl", "1,5L"],
   },
 
-  cepages: [
-    {
-      cepage: {
-        type: String,
-        enum: [
-          "Grenache",
-          "Syrah",
-          "Clairette",
-          "Bourboulenc",
-          "Mourvèdre",
-          "Viognier",
-          "Caladoc",
-        ],
-        required: true,
-      },
-      pourcentage: { type: Number, required: true },
-    },
-  ],
+  degustation: { type: String, required: true },
 
-  elevage: { type: String, required: true },
-
-  description: { type: String, required: true },
-
-  notes: [
+  presse: [
     {
       source: { type: String },
       note: { type: Number },
@@ -53,21 +34,13 @@ const wineSchema = mongoose.Schema({
     },
   ],
 
-  recompenses: [
-    {
-      titre: { type: String },
-      annee: { type: Number },
-      description: { type: String },
-    },
-  ],
-
-  degustation: {
+  degustationVideo: {
     videoUrl: { type: String },
   },
 
-  imageUrl: { type: String, required: true },
+  img__btlle: { type: String, required: true },
 
-  price: { type: Number, required: true },
+  prix: { type: Number, required: true },
 });
 
 module.exports = mongoose.model("Wine", wineSchema);
