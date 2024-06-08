@@ -7,7 +7,7 @@ exports.createActu = (req, res, next) => {
 
   actu
     .save()
-    .then(res.status(201).json({ message: "actualité créée!" }))
+    .then(res.status(201).json({ message: "actualité créée!", actu }))
     .catch((error) => res.status(400).json(error));
 };
 
@@ -19,6 +19,6 @@ exports.deleteActu = (req, res, next) => {
 
 exports.getAllActu = (req, res, next) => {
   Actu.find()
-    .then((salons) => res.status(200).json(salons))
-    .catch(res.status(400).json(error));
+    .then((actus) => res.status(200).json(actus))
+    .catch((error) => res.status(400).json({ error }));
 };

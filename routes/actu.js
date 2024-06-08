@@ -3,10 +3,10 @@ const router = express.Router();
 
 const actuCtrl = require("../controllers/actu");
 
-router.post("/", actuCtrl.createActu);
+router.post("/New", actuCtrl.createActu);
 
 router.delete("/:id", actuCtrl.deleteActu);
 
-router.get("/", actuCtrl.getAllActu);
+router.get("/All", actuCtrl.getAllActu);
 
 module.exports = router;

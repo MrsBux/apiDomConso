@@ -5,15 +5,22 @@ const User = require("../models/User");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.SECRET_KEY;
+const crypto = require("crypto");
 
 // Fonction pour créer un nouvel utilisateur
 exports.signup = (req, res, next) => {
+  const randomClientId = crypto.randomBytes(8).toString("hex");
+
   bcrypt
     .hash(req.body.password, 10) // Hachage du mot de passe avec bcrypt
     .then((hash) => {
       const user = new User({
         email: req.body.email,
-        password: hash, // Stockage du mot de passe haché dans la base de données
+        password: hash,
+        firstname: req.body.firstname,
+        name: req.body.name,
+        numeroclient: randomClientId,
+        points: 0,
       });
       // Enregistrement de l'utilisateur dans la base de données
       user
@@ -43,8 +50,9 @@ exports.login = (req, res, next) => {
           // Génération d'un token JWT pour l'utilisateur authentifié
 
           res.status(200).json({
+            user: user,
             userId: user._id,
-            token: jwt.sign({ userId: user._id }, jwtSecret, {
+            tokenUser: jwt.sign({ userId: user._id }, jwtSecret, {
               expiresIn: "6h",
             }),
           });
@@ -52,4 +60,25 @@ exports.login = (req, res, next) => {
         .catch((error) => res.status(500).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+// Fonction pour récupérer tous les utilisateurs
+exports.getAllUsers = () => {
+  return fetch("http://localhost:3000/api/users")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des utilisateurs");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la récupération des utilisateurs :", error);
+    });
+};
+
+// Fonction pour récupérer un utilisateur par son identifiant
+exports.getOneUser = (req, res, next) => {
+  User.findOne({ _id: req.params.userId })
+    .then((user) => res.status(200).json(user))
+    .catch((error) => res.status(404).json({ error }));
 };
