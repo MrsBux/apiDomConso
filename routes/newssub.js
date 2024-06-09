@@ -3,7 +3,7 @@ const router = express.Router();
 
 const newssubCtrl = require("../controllers/newssub.js");
 
-router.post("/", newssubCtrl.createNewsSub);
+router.post("/post", newssubCtrl.createNewsSub);
 
 router.delete("/:id", newssubCtrl.deleteNewsSub);
 

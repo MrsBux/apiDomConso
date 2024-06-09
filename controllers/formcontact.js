@@ -5,7 +5,7 @@ const EmailUser = process.env.EMAIL_USER;
 const EmailPassword = process.env.EMAIL_PASSWORD;
 const EmailConso = process.env.EMAIL_CONSO;
 
-const getForm = async (req, res) => {
+const postForm = async (req, res) => {
   try {
     const nouveauFormulaire = new FormContact({
       nom: req.body.nom,
@@ -51,7 +51,5 @@ const getForm = async (req, res) => {
 };
 
 module.exports = {
-  getForm,
+  postForm,
 };
-
-//

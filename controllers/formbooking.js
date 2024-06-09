@@ -5,13 +5,12 @@ const EmailUser = process.env.EMAIL_USER;
 const EmailPassword = process.env.EMAIL_PASSWORD;
 const EmailConso = process.env.EMAIL_CONSO;
 
-const getForm = async (req, res) => {
+exports.postForm = async (req, res) => {
   try {
     const nouveauFormulaire = new FormBooking({
       nom: req.body.nom,
       prestation: req.body.prestation,
       email: req.body.email,
-      message: req.body.message,
       date: req.body.date,
       heure: req.body.heure,
       telephone: req.body.telephone,
@@ -35,9 +34,9 @@ const getForm = async (req, res) => {
         `Nom: ${req.body.nom}\n` +
         `Prestation: ${req.body.prestation}\n` +
         `Date: ${req.body.date}\n` +
-        `Date: ${req.body.heure}\n` +
+        `Heure: ${req.body.heure}\n` +
         `E-mail: ${req.body.email}\n` +
-        `Telephone: ${req.body.telephone}`,
+        `Téléphone: ${req.body.telephone}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -54,9 +53,3 @@ const getForm = async (req, res) => {
     res.status(500).send("Erreur lors du traitement du formulaire.");
   }
 };
-
-module.exports = {
-  getForm,
-};
-
-//
