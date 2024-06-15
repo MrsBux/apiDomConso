@@ -6,6 +6,8 @@ const EmailPassword = process.env.EMAIL_PASSWORD;
 const EmailConso = process.env.EMAIL_CONSO;
 
 exports.postForm = async (req, res) => {
+  console.log("controller atteint");
+
   try {
     const nouveauFormulaire = new FormBooking({
       nom: req.body.nom,
@@ -47,9 +49,11 @@ exports.postForm = async (req, res) => {
       }
     });
 
-    res.status(200).send("Formulaire soumis avec succès !");
+    res.status(200).json({ message: "Formulaire soumis avec succès !" });
   } catch (error) {
     console.error("Erreur lors du traitement du formulaire : ", error);
-    res.status(500).send("Erreur lors du traitement du formulaire.");
+    res
+      .status(500)
+      .json({ message: "Erreur lors du traitement du formulaire." });
   }
 };

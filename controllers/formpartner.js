@@ -5,7 +5,7 @@ const EmailUser = process.env.EMAIL_USER;
 const EmailPassword = process.env.EMAIL_PASSWORD;
 const EmailConso = process.env.EMAIL_CONSO;
 
-const getForm = async (req, res) => {
+const postPartnerForm = async (req, res) => {
   try {
     const nouveauFormulaire = new FormPartner({
       nom: req.body.nom,
@@ -45,15 +45,17 @@ const getForm = async (req, res) => {
       }
     });
 
-    res.status(200).send("Formulaire partner soumis avec succès !");
+    res
+      .status(200)
+      .json({ message: "Formulaire partner soumis avec succès !" });
   } catch (error) {
     console.error("Erreur lors du traitement du formulaire partner : ", error);
-    res.status(500).send("Erreur lors du traitement du formulaire partner.");
+    res
+      .status(500)
+      .json({ message: "Erreur lors du traitement du formulaire partner." });
   }
 };
 
 module.exports = {
-  getForm,
+  postPartnerForm,
 };
-
-//
