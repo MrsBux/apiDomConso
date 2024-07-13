@@ -50,7 +50,7 @@ exports.login = (req, res, next) => {
           // Génération d'un token JWT pour l'utilisateur authentifié
 
           res.status(200).json({
-            user: user,
+            name: user.name,
             userId: user._id,
             tokenUser: jwt.sign({ userId: user._id }, jwtSecret, {
               expiresIn: "6h",
@@ -63,16 +63,15 @@ exports.login = (req, res, next) => {
 };
 
 // Fonction pour récupérer tous les utilisateurs
-exports.getAllUsers = () => {
-  return fetch("http://localhost:3000/api/users")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur lors de la récupération des utilisateurs");
-      }
-      return response.json();
+exports.getAllUsers = (req, res, next) => {
+  User.find()
+    .then((users) => {
+      res.status(200).json(users);
     })
     .catch((error) => {
-      console.error("Erreur lors de la récupération des utilisateurs :", error);
+      res
+        .status(500)
+        .json({ message: "Failed to retrieve users", error: error });
     });
 };
 
@@ -81,4 +80,43 @@ exports.getOneUser = (req, res, next) => {
   User.findOne({ _id: req.params.userId })
     .then((user) => res.status(200).json(user))
     .catch((error) => res.status(404).json({ error }));
+};
+
+// Fonction pour mettre à jour un utilisateur
+exports.updateUser = (req, res, next) => {
+  const userId = req.params.userId;
+  const updates = req.body;
+
+  // Enlever les champs non modifiables
+  delete updates.numeroclient;
+  delete updates.firstname;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      return User.findByIdAndUpdate(userId, updates, {
+        new: true,
+        runValidators: true,
+      });
+    })
+    .then((updatedUser) => {
+      if (updatedUser) {
+        res
+          .status(200)
+          .json({ message: "User updated successfully", user: updatedUser });
+      }
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId") {
+        res.status(400).json({ message: "Invalid user ID" });
+      } else if (error.code === 11000) {
+        res.status(400).json({ message: "Email already in use" });
+      } else {
+        res
+          .status(500)
+          .json({ message: "Internal server error", error: error });
+      }
+    });
 };

@@ -1,4 +1,4 @@
-const prix = require("../models/Prix.js");
+const Prix = require("../models/Prix.js"); // Ensure correct casing for model import
 
 exports.createPrix = (req, res, next) => {
   const prix = new Prix({
@@ -7,20 +7,18 @@ exports.createPrix = (req, res, next) => {
 
   prix
     .save()
-    .then(res.status(201).json({ message: "prix créé!" }))
+    .then(() => res.status(201).json({ message: "prix créé!", prix }))
     .catch((error) => res.status(400).json(error));
 };
 
 exports.deletePrix = (req, res, next) => {
-  prix
-    .deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).json({ message: "prix Supprimée !" }))
+  Prix.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: "prix Supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.getAllPrix = (req, res, next) => {
-  prix
-    .find()
-    .then((salons) => res.status(200).json(salons))
-    .catch(res.status(400).json(error));
+  Prix.find()
+    .then((prix) => res.status(200).json(prix))
+    .catch((error) => res.status(400).json({ error }));
 };

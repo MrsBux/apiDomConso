@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 
 const salonSchema = mongoose.Schema({
-  id: { type: Number, required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
-  date: { type: String, required: true },
   debut: { type: Date, required: true },
   fin: { type: Date, required: true },
   region: {
@@ -27,8 +25,8 @@ const salonSchema = mongoose.Schema({
     required: true,
   },
   localisation: { type: String, required: true },
-  logoUrl: { type: String, required: true },
-  invitation: { type: String, required: true },
+  logoUrl: { type: String },
+  invitation: { type: String },
 });
 
 module.exports = mongoose.model("Salon", salonSchema);
