@@ -1,42 +1,33 @@
 const Salon = require("../models/Salon.js");
-const { pdfUpload, imageUpload } = require("../middlewares/multer.js");
 
 exports.createSalon = (req, res, next) => {
-  // Utilisation de Multer pour gérer les fichiers
-  pdfUpload(req, res, (err) => {
-    if (err) {
-      return res.status(400).json({
-        message: "Erreur lors du téléchargement du fichier PDF",
-        error: err,
-      });
-    }
+  // Vérifier si un fichier a été téléchargé
+  if (!req.file) {
+    console.log("Aucun fichier n'a été téléchargé");
+  }
 
-    imageUpload(req, res, (err) => {
-      if (err) {
-        return res.status(400).json({
-          message: "Erreur lors du téléchargement du fichier image",
-          error: err,
-        });
-      }
-
-      // Création du nouveau salon avec les données du corps de la requête
-      const salon = new Salon({
-        ...req.body,
-        logoUrl: req.file ? "/uploads/images/" + req.file.filename : "",
-        invitation: req.file ? "/uploads/pdf/" + req.file.filename : "",
-      });
-
-      // Sauvegarde du salon dans la base de données
-      salon
-        .save()
-        .then(() => res.status(201).json({ message: "Salon créé!", salon }))
-        .catch((error) =>
-          res
-            .status(400)
-            .json({ message: "Erreur lors de la création du salon", error })
-        );
-    });
+  // Créer un nouvel objet Salon avec les données du formulaire
+  const salon = new Salon({
+    name: req.body.name,
+    description: req.body.description,
+    debut: req.body.debut,
+    fin: req.body.fin,
+    region: req.body.region,
+    localisation: req.body.localisation,
+    invitation: req.file ? req.file.filename : null, // Utilisation du nom de fichier uniquement
   });
+
+  // Sauvegarder le salon dans la base de données MongoDB
+  salon
+    .save()
+    .then((savedSalon) => {
+      res.status(201).json({ message: "Salon créé!", salon: savedSalon });
+    })
+    .catch((error) => {
+      res
+        .status(400)
+        .json({ message: "Erreur lors de la création du salon", error });
+    });
 };
 
 exports.modifySalon = (req, res, next) => {

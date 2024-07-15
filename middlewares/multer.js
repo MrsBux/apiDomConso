@@ -1,27 +1,21 @@
 const multer = require("multer");
+const path = require("path");
 
-// Configuration de Multer pour les fichiers PDF
-const pdfStorage = multer.diskStorage({
+// Configuration de Multer pour l'enregistrement des fichiers
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads/pdf"); // Dossier de destination pour les PDF
+    cb(
+      null,
+      "/home/camille_sc/Documents/projet_consonniere/projet_conso/apiDomConso/pdf"
+    );
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname); // Nom de fichier unique
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 
-const pdfUpload = multer({ storage: pdfStorage }).single("invitation");
+// Initialisation de l'instance Multer avec la configuration de stockage
+const upload = multer({ storage: storage });
 
-// Configuration de Multer pour les fichiers d'image
-const imageStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/images"); // Dossier de destination pour les images
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname); // Nom de fichier unique
-  },
-});
-
-const imageUpload = multer({ storage: imageStorage }).single("logoUrl");
-
-module.exports = { pdfUpload, imageUpload };
+module.exports = upload;

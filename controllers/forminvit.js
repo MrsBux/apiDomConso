@@ -9,7 +9,7 @@ const getForm = async (req, res) => {
   try {
     const nouveauFormulaire = new FormInvit({
       email: req.body.email,
-      salon: req.body.salon,
+      name: req.body.name, // Correct field name
     });
     await nouveauFormulaire.save();
 
@@ -28,7 +28,7 @@ const getForm = async (req, res) => {
       text:
         "Nouvelle demande d'invit soumise sur votre site.\n" +
         `E-mail: ${req.body.email}\n` +
-        `Salon: ${req.body.salon}`,
+        `Salon: ${req.body.name}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -49,5 +49,3 @@ const getForm = async (req, res) => {
 module.exports = {
   getForm,
 };
-
-//
