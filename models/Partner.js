@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const partnerSchema = mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true },
+  description: { type: String },
   contactUrl: { type: String },
-  logoPUrl: { type: String, required: true },
+  logoPUrl: { type: String },
   category: {
     type: String,
-    enum: ["restaurateur", "importateur", "caviste", "autre"],
+    enum: ["Restaurateur", "Importateur", "Caviste", "Autre"],
     required: true,
   },
-  localisation: { type: Number, required: true },
+  localisation: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Partner", partnerSchema);

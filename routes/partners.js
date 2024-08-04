@@ -3,11 +3,10 @@ const router = express.Router();
 
 const partnersCtrl = require("../controllers/partners.js");
 
-router.post("/", partnersCtrl.createPartner);
+router.post("/New", partnersCtrl.createPartner);
 
-router.put("/:id", partnersCtrl.modifyPartner);
-
-router.delete("/:id", partnersCtrl.deletePartner);
+router.put("/Put/:id", partnersCtrl.modifyPartner);
+router.delete("/Delete/:id", partnersCtrl.deletePartner);
 
 router.get("/:id", partnersCtrl.getOnePartner);
 
