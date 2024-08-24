@@ -17,6 +17,7 @@ const formPartnerRoutes = require("./routes/formpartner.js");
 const userRoutes = require("./routes/user.js");
 const adminRoutes = require("./routes/admin.js");
 const formInvitRoutes = require("./routes/forminvit.js");
+const orderRoutes = require("./routes/order.js");
 
 require("dotenv").config();
 const mongoURI = process.env.MONGODB_URI;
@@ -95,5 +96,6 @@ app.use("/api/forminvit", formInvitRoutes);
 app.use("/api/formGFV", formGFVRoutes);
 app.use("/api/formbooking", formBookingRoutes);
 app.use("/api/formpartner", formPartnerRoutes);
+app.use("/api/order", orderRoutes);
 
 module.exports = app;

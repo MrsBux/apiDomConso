@@ -57,3 +57,15 @@ exports.postForm = async (req, res) => {
       .json({ message: "Erreur lors du traitement du formulaire." });
   }
 };
+
+exports.getAllBookingForms = async (req, res) => {
+  try {
+    const forms = await FormBooking.find();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Erreur lors de la recherche des formulaires : ", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la recherche des formulaires." });
+  }
+};

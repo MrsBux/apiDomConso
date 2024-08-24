@@ -120,3 +120,16 @@ exports.updateUser = (req, res, next) => {
       }
     });
 };
+
+exports.countUsers = (req, res, next) => {
+  User.countDocuments({})
+    .then((count) => {
+      res.status(200).json({ userCount: count });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: "Erreur lors du comptage des utilisateurs",
+        error: error,
+      });
+    });
+};

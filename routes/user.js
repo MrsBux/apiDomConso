@@ -13,4 +13,6 @@ router.get("/one/:userId", userCtrl.getOneUser);
 // Route pour mettre à jour un utilisateur par son identifiant
 router.put("/update/:userId", userCtrl.updateUser);
 
+router.get("/count", userCtrl.countUsers);
+
 module.exports = router;
