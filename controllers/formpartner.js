@@ -1,4 +1,4 @@
-const FormPartner = require("../models/FormGFV");
+const FormPartner = require("../models/FormPartner");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const EmailUser = process.env.EMAIL_USER;
@@ -56,6 +56,19 @@ const postPartnerForm = async (req, res) => {
   }
 };
 
+const getAllFormPartner = async (req, res) => {
+  try {
+    const forms = await FormPartner.find();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Erreur lors de la recherche des formulaires : ", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la recherche des formulaires." });
+  }
+};
+
 module.exports = {
   postPartnerForm,
+  getAllFormPartner,
 };

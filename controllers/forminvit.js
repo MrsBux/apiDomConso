@@ -46,6 +46,19 @@ const getForm = async (req, res) => {
   }
 };
 
+const getAllFormInvit = async (req, res) => {
+  try {
+    const forms = await FormInvit.find();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Erreur lors de la recherche des formulaires : ", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la recherche des formulaires." });
+  }
+};
+
 module.exports = {
   getForm,
+  getAllFormInvit,
 };

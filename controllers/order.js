@@ -10,7 +10,6 @@ exports.createOrder = async (req, res, next) => {
   try {
     const order = new Order({
       ...req.body,
-      date: new Date(), // Ajoute la date actuelle
       state: "new", // Définit l'état initial à "new"
     });
 

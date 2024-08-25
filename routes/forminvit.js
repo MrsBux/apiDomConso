@@ -4,4 +4,6 @@ const forminvitCtrl = require("../controllers/forminvit.js");
 
 router.post("/post", forminvitCtrl.getForm);
 
+router.get("/All", forminvitCtrl.getAllFormInvit);
+
 module.exports = router;

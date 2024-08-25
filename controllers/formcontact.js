@@ -50,6 +50,19 @@ const postForm = async (req, res) => {
   }
 };
 
+const getAllContactForms = async (req, res) => {
+  try {
+    const forms = await FormContact.find();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Erreur lors de la recherche des formulaires : ", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la recherche des formulaires." });
+  }
+};
+
 module.exports = {
   postForm,
+  getAllContactForms,
 };

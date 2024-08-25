@@ -5,7 +5,7 @@ const EmailUser = process.env.EMAIL_USER;
 const EmailPassword = process.env.EMAIL_PASSWORD;
 const EmailConso = process.env.EMAIL_CONSO;
 
-const getForm = async (req, res) => {
+const postForm = async (req, res) => {
   try {
     const nouveauFormulaire = new FormGFV({
       nom: req.body.nom,
@@ -35,21 +35,34 @@ const getForm = async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error("Erreur lors de l'envoi de l'e-mail form gfv : ", error);
+        console.error("Erreur lors de l'envoi de l'e-mail : ", error);
       } else {
-        console.log("E-mail envoyé gfv : ", info.response);
+        console.log("E-mail envoyé : ", info.response);
       }
     });
 
-    res.status(200).send("Formulaire gfv soumis avec succès !");
+    res.status(200).send("Formulaire soumis avec succès !");
   } catch (error) {
-    console.error("Erreur lors du traitement du formulaire gfv : ", error);
-    res.status(500).send("Erreur lors du traitement du formulaire gfv.");
+    console.error("Erreur lors du traitement du formulaire : ", error);
+    res.status(500).send("Erreur lors du traitement du formulaire.");
+  }
+};
+
+const getAllGFVForms = async (req, res) => {
+  try {
+    const forms = await FormGFV.find();
+    res.status(200).json(forms);
+  } catch (error) {
+    console.error("Erreur lors de la recherche des formulaires : ", error);
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la recherche des formulaires." });
   }
 };
 
 module.exports = {
-  getForm,
+  postForm,
+  getAllGFVForms,
 };
 
 //
