@@ -2,11 +2,18 @@ const express = require("express");
 const router = express.Router();
 const salonsCtrl = require("../controllers/salons.js");
 const upload = require("../middlewares/multer");
+const verifyToken = require("../middlewares/verifytoken");
 
-router.post("/New", upload.single("invitation"), salonsCtrl.createSalon); // Route pour créer un nouveau salon
-router.put("/Put/:id", salonsCtrl.modifySalon); // Route pour modifier un salon par son ID
-router.delete("/Delete/:id", salonsCtrl.deleteSalon); // Route pour supprimer un salon par son ID
+router.post(
+  "/New",
+  verifyToken,
+  upload.single("invitation"),
+  salonsCtrl.createSalon
+);
+router.put("/Put/:id", verifyToken, salonsCtrl.modifySalon); // Route pour modifier un salon par son ID
+router.delete("/Delete/:id", verifyToken, salonsCtrl.deleteSalon); // Route pour supprimer un salon par son ID
 router.get("/:id", salonsCtrl.getOneSalon); // Route pour récupérer un salon par son ID
 router.get("/", salonsCtrl.getAllSalons); // Utilisation de '/' au lieu de '/All'
+router.get("/:id/download", salonsCtrl.downloadInvitation);
 
 module.exports = router;
