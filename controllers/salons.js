@@ -5,21 +5,21 @@ const util = require("util");
 
 // Dans le contrôleur salons.js
 exports.createSalon = (req, res, next) => {
-  if (!req.file) {
-    return res
-      .status(400)
-      .json({ message: "Aucun fichier n'a été téléchargé" });
-  }
-
-  const salon = new Salon({
+  const salonData = {
     name: req.body.name,
     description: req.body.description,
     debut: req.body.debut,
     fin: req.body.fin,
     region: req.body.region,
     localisation: req.body.localisation,
-    invitation: req.file.path, // Stocke le chemin complet du fichier
-  });
+  };
+
+  // Ajoute le champ invitation seulement si un fichier a été uploadé
+  if (req.file) {
+    salonData.invitation = req.file.path;
+  }
+
+  const salon = new Salon(salonData);
 
   salon
     .save()
