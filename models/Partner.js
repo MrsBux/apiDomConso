@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const partnerSchema = mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String },
+  description: { type: String, required: true },
   contactUrl: { type: String },
   logoPUrl: { type: String },
   category: {
