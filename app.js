@@ -69,7 +69,12 @@ app.use(express.json());
 
 // CORS configuration
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // Remplacez '*' par l'URL de votre frontend
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://www.domainelaconsonniere.fr"
+  );
+
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
@@ -78,6 +83,15 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
+
+  // Ajoutez cette ligne pour permettre l'envoi de cookies
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // Gérer les requêtes OPTIONS préliminaires
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
   next();
 });
 
