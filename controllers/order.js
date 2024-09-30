@@ -64,7 +64,7 @@ exports.createOrder = async (req, res, next) => {
         `Cordialement,\nL'équipe de la Consonnière` +
         `\n\n\n\n` +
         `\n\n\n\n` +
-        `\n\nRIB à insérer.\n\n`,
+        `\n\nRIB, IBAN FR76 1130 6000 8401 2212 9900 043, BIC : AGRIFRPP813\n\n`,
     };
 
     // Send emails
