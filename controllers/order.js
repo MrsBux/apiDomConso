@@ -1,6 +1,5 @@
 const Order = require("../models/Order");
 const nodemailer = require("nodemailer");
-const fs = require("fs");
 require("dotenv").config();
 
 const EmailUser = process.env.EMAIL_USER;
@@ -40,9 +39,6 @@ exports.createOrder = async (req, res, next) => {
         `Total: ${savedOrder.totalPrice}€`,
     };
 
-    // Chemin vers le fichier PDF du RIB
-    const ribPath = path.join(__dirname, "../assets/rib.pdf");
-
     // Email to customer
     const customerMailOptions = {
       from: EmailUser,
@@ -60,18 +56,15 @@ exports.createOrder = async (req, res, next) => {
           .map((item) => `- ${item.wineName}: ${item.quantite}`)
           .join("\n") +
         `\n\nSi vous avez opté pour un paiement par chèque veuillez nous parvenir par voie postale (au 7 chemin de Boursan, 84230 Châteauneuf-du-Pape), votre chèque sous 14 jours en rappelant le numéro de commande indiqué dans ce mail, votre nom et votre prénom.\n\n` +
-        `\n\nSi vous avez opté pour un paiement par virement, veuillez réaliser le virement sous 14 jours en rappelant le numéro de commande présent dans ce mail ainsi que votre nom et votre prénom. Vous trouverez le RIB en pièce jointe de cet e-mail.\n\n` +
+        `\n\n Si vous avez opté pour un paiement par virement, veuillez réaliser le virement sous 14 jours en rappelant le numéro de commande présent dans ce mail ainsi que votre nom et votre prénom. Vous trouverez le RIB à la fin de ce mail.\n\n` +
         `\n\nSi vous avez opté pour un paiement en espèce lors d'une remise en main propre, vous avez 30 jours pour venir récupérer votre commande. Pour convenir d'un créneau de retrait vous pouvez nous contacter par mail ou par télephone au 0603491348 ou au 0603494881 .\n\n` +
         `\n\nSi vous avez opté pour une livraison à domicile vous recevrez un email lors de l'expédition de votre commande,\n\n` +
         `\n\nSi vous avec opté pour la livraison en salon, vous recevrez un email de rappel avant le début du salon afin que vous puissiez penser à venir récupérer votre commande .\n\n` +
         `\n\nSi vous avez besoin d'aide, n'hezitez pas à nous contacter. Nous serons ravis de vous aider.\n\n` +
-        `Cordialement,\nL'équipe de la Consonnière`,
-      attachments: [
-        {
-          filename: "rib.pdf",
-          content: fs.createReadStream(ribPath),
-        },
-      ],
+        `Cordialement,\nL'équipe de la Consonnière` +
+        `\n\n\n\n` +
+        `\n\n\n\n` +
+        `\n\nRIB à insérer.\n\n`,
     };
 
     // Send emails
