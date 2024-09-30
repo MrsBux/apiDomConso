@@ -7,7 +7,7 @@ const OrderSchema = mongoose.Schema(
     prenom: { type: String, required: true },
     adresse: { type: String },
     state: { type: String },
-    userId: { type: String, required: true, default: "0" },
+    userId: { type: String, default: "0" },
     wine: [
       {
         wineName: { type: String, required: true },
