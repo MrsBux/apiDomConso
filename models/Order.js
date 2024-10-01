@@ -6,12 +6,15 @@ const OrderSchema = mongoose.Schema(
     nom: { type: String, required: true },
     prenom: { type: String, required: true },
     adresse: { type: String },
+    codePostal: { type: String },
+    ville: { type: String },
     state: { type: String },
     userId: { type: String, default: "0" },
     wine: [
       {
         wineName: { type: String, required: true },
         quantite: { type: Number, required: true },
+        wineMillesime: { type: Number, required: true },
       },
     ],
     winePrice: { type: Number, required: true },

@@ -53,7 +53,10 @@ exports.createOrder = async (req, res, next) => {
         `Type de livraison: ${savedOrder.deliveryType}\n\n` +
         `Détails de la commande:\n` +
         savedOrder.wine
-          .map((item) => `- ${item.wineName}: ${item.quantite}`)
+          .map(
+            (item) =>
+              `- ${item.wineName} - ${item.wineMillesime}: ${item.quantite}`
+          )
           .join("\n") +
         `\n\nSi vous avez opté pour un paiement par chèque veuillez nous parvenir par voie postale (au 7 chemin de Boursan, 84230 Châteauneuf-du-Pape), votre chèque sous 14 jours en rappelant le numéro de commande indiqué dans ce mail, votre nom et votre prénom.\n\n` +
         `\n\n Si vous avez opté pour un paiement par virement, veuillez réaliser le virement sous 14 jours en rappelant le numéro de commande présent dans ce mail ainsi que votre nom et votre prénom. Vous trouverez le RIB à la fin de ce mail.\n\n` +
