@@ -22,7 +22,7 @@ const OrderSchema = mongoose.Schema(
     totalPrice: { type: Number, required: true },
     paiementType: { type: String, required: true },
     deliveryType: { type: String, required: true },
-    Date: { type: Date, default: Date.now },
+    Date: { type: String },
   },
   { timestamps: true }
 );
