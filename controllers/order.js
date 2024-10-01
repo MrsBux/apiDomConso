@@ -31,7 +31,7 @@ exports.createOrder = async (req, res, next) => {
       text:
         "Une nouvelle commande a été soumise sur votre site.\n" +
         `Numéro de commande: ${savedOrder._id}\n` +
-        `Date de commande: ${savedOrder.date}\n` +
+        `Date de commande: ${savedOrder.Date}\n` +
         `État: ${savedOrder.state}\n` +
         `E-mail du client: ${savedOrder.email}\n` +
         `Nom: ${savedOrder.nom}\n` +
@@ -48,7 +48,7 @@ exports.createOrder = async (req, res, next) => {
         `Cher/Chère ${savedOrder.prenom} ${savedOrder.nom},\n\n` +
         `Nous vous remercions pour votre commande. Voici un récapitulatif :\n\n` +
         `Numéro de commande: ${savedOrder._id}\n` +
-        `Date de commande: ${savedOrder.date}\n` +
+        `Date de commande: ${savedOrder.Date}\n` +
         `Total: ${savedOrder.totalPrice}€\n` +
         `Type de livraison: ${savedOrder.deliveryType}\n\n` +
         `Détails de la commande:\n` +
