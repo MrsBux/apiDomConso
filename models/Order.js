@@ -14,7 +14,7 @@ const OrderSchema = mongoose.Schema(
       {
         wineName: { type: String, required: true },
         quantite: { type: Number, required: true },
-        wineMillesime: { type: Number, required: true },
+        wineMillesime: { type: Number },
       },
     ],
     winePrice: { type: Number, required: true },
